@@ -3,6 +3,8 @@ package com.razorpay.vault.entity;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import com.razorpay.common.enums.CardBrand;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -34,7 +36,7 @@ public class VaultCard {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private String brand; // VISA, RUPAY
+    private CardBrand brand; // VISA, RUPAY
 
     @Column(nullable = false)
     private String expiryMonth;

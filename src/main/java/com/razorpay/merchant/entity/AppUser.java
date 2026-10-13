@@ -2,6 +2,8 @@ package com.razorpay.merchant.entity;
 
 import java.util.UUID;
 
+import com.razorpay.common.enums.BusinessType;
+import com.razorpay.common.enums.MerchantStatus;
 import com.razorpay.common.enums.UserRole;
 
 import jakarta.persistence.Column;
@@ -15,9 +17,19 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "app_user")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class AppUser {
 	
 	@Id

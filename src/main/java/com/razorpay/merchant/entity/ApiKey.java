@@ -16,9 +16,19 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "api_keys")
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@Builder
 public class ApiKey {
 	
 	@Id
@@ -33,13 +43,17 @@ public class ApiKey {
 	private String keyId;
 	
 	@Column(nullable = false, length = 255)
-	private String KeySecretHash;
+	private String keySecretHash;
+	
+	@Column(length = 255)
+	private String previousKeySecretHash;
 	
 	@Column(nullable = false, length = 255)
 	@Enumerated(EnumType.STRING)
 	private Environment environment;
 	
 	@Column(nullable = false)
+	@Builder.Default
 	private boolean enabled = true;
 	
 	
