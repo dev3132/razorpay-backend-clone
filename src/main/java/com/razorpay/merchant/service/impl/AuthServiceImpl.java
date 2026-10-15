@@ -10,6 +10,7 @@ import com.razorpay.merchant.dto.request.MerchantSignUpRequest;
 import com.razorpay.merchant.dto.response.MerchantResponse;
 import com.razorpay.merchant.entity.AppUser;
 import com.razorpay.merchant.entity.Merchant;
+import com.razorpay.merchant.mapper.MerchantMapper;
 import com.razorpay.merchant.repository.AppUserRepository;
 import com.razorpay.merchant.repository.MerchantRepository;
 import com.razorpay.merchant.service.AuthService;
@@ -23,9 +24,10 @@ public class AuthServiceImpl implements AuthService {
 	
 	private final AppUserRepository appUserRepository;
 	private final MerchantRepository merchantRepository;
+	private final MerchantMapper merchantMapper;
 	
 	@Override
-	@Transactional
+//	@Transactional
 	public MerchantResponse signUp(MerchantSignUpRequest request) {
 
 		if (appUserRepository.existsByEmail(request.email())) {
@@ -33,13 +35,9 @@ public class AuthServiceImpl implements AuthService {
 					"Email already exists"+request.email());
 		}
 		
-		Merchant merchant = Merchant.builder()
-				.name(request.name())
-				.email(request.email())
-				.businessName(request.businessName())
-				.businessType(request.businessType())
-				.status(MerchantStatus.PENDING_KYC)
-				.build();
+		Merchant merchant = merchantMapper.toEntityFromSignUpRequest(request);
+		merchant.setStatus(MerchantStatus.PENDING_KYC);
+		
 		merchant = merchantRepository.save(merchant);
 		
 		AppUser appUser = AppUser.builder()
@@ -51,14 +49,9 @@ public class AuthServiceImpl implements AuthService {
 		
 		appUser = appUserRepository.save(appUser);
 		
-		return new MerchantResponse(
-				merchant.getId(),
-				merchant.getName(),
-				merchant.getEmail(),
-				merchant.getBusinessName(),
-				merchant.getBusinessType(),
-				merchant.getStatus()
-		); 
+		return new MerchantResponse(merchant.getId(), merchant.getName(), merchant.getEmail(),
+				merchant.getBusinessName(),merchant.getBusinessType(),merchant.getStatus());
+		 
 	}
 
 }

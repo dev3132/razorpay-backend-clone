@@ -19,9 +19,19 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "order_records")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class OrderRecord {
 	
 	@Id
@@ -35,12 +45,16 @@ public class OrderRecord {
 	@Embedded
 	private Money amount;
 	
+	@Column(length = 100)
+	private String receipt;
+	
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false, length = 20)
 	private OrderStatus orderStatus = OrderStatus.CREATED;
 	
 	@Column(nullable = false)
-	private Integer attempts;
+	@Builder.Default
+	private Integer attempts = 0;
 	
 	@JdbcTypeCode((SqlTypes.JSON))
 	@Column(nullable = false, columnDefinition = "json")

@@ -41,14 +41,16 @@ public class ApiKeyController {
 		return ResponseEntity.ok(apiKeyService.listByMerchant(merchantId));
 	}
 	
-	@DeleteMapping
+	@DeleteMapping("/")
 	public ResponseEntity<Void> revoke(@PathVariable UUID merchantId, @PathVariable UUID keyId){
 		apiKeyService.revoke(merchantId, keyId);
 		return ResponseEntity.noContent().build();
 	}
 	
 	@PostMapping("/{keyId}/rotate")
-	public ResponseEntity<ApiKeyCreateResponse> rotateKeyKey(@PathVariable UUID merchantId, @PathVariable UUID keyId){
+	public ResponseEntity<ApiKeyCreateResponse> rotateKeyKey(
+			@PathVariable("merchantId") UUID merchantId, 
+			@PathVariable("keyId") UUID keyId){
 		return ResponseEntity.ok(apiKeyService.rotate(merchantId, keyId));
 	}
 	

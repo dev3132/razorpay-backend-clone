@@ -1,6 +1,6 @@
 package com.razorpay.common.enums;
 
-public enum PaymentMethods {
+public enum PaymentMethod {
 	
 	CARD,
 	UPI,

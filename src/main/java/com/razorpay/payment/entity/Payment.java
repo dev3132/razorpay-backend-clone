@@ -8,7 +8,8 @@ import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
 import com.razorpay.common.entity.Money;
-import com.razorpay.common.enums.PaymentMethods;
+import com.razorpay.common.enums.OrderStatus;
+import com.razorpay.common.enums.PaymentMethod;
 import com.razorpay.common.enums.PaymentStatus;
 
 import jakarta.persistence.Column;
@@ -23,9 +24,19 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "payments")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Payment {
 	
 	@Id
@@ -33,8 +44,8 @@ public class Payment {
 	private UUID id;
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "order_record_id", nullable = false)
-	private OrderRecord orderRecord;
+	@JoinColumn(name = "order_id", nullable = false)
+	private OrderRecord order;
 	
 	@Column(name = "merchant_id", nullable = false)
 	private UUID merchantId;
@@ -51,7 +62,7 @@ public class Payment {
 	
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false, length = 20)
-	private PaymentMethods paymentMethod;
+	private PaymentMethod paymentMethod;
 	
 	@JdbcTypeCode((SqlTypes.JSON))
 	@Column(nullable = false, columnDefinition = "json")
