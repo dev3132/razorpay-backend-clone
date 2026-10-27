@@ -4,5 +4,6 @@ public enum PaymentActor {
 	
 	CUSTOMER,
 	MERCHANT,
-	RAZORPAY
+	RAZORPAY,
+	SYSTEM
 }

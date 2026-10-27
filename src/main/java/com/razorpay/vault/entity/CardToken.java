@@ -3,6 +3,9 @@ package com.razorpay.vault.entity;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import com.razorpay.common.entity.BaseEntity;
+import com.razorpay.common.enums.CardBrand;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -12,10 +15,20 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Table(name = "vault_tokens")
-public class VaultToken {
+@Table(name = "card_token")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class CardToken extends BaseEntity{
 	
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

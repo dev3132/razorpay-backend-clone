@@ -1,5 +1,7 @@
 package com.razorpay.operations.entity;
 
+import com.razorpay.common.entity.BaseEntity;
+
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -10,7 +12,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "settlement_payment")
-public class SettlementPayment {
+public class SettlementPayment extends BaseEntity{
 	
 	@EmbeddedId
     private SettlementPaymentId id;

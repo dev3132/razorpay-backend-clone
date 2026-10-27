@@ -7,6 +7,7 @@ import java.util.UUID;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
+import com.razorpay.common.entity.BaseEntity;
 import com.razorpay.common.entity.Money;
 import com.razorpay.common.enums.PaymentActor;
 import com.razorpay.common.enums.PaymentEvent;
@@ -38,7 +39,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Refund {
+public class Refund extends BaseEntity{
 	
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

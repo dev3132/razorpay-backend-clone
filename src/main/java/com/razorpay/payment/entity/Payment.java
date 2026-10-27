@@ -7,6 +7,7 @@ import java.util.UUID;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
+import com.razorpay.common.entity.BaseEntity;
 import com.razorpay.common.entity.Money;
 import com.razorpay.common.enums.OrderStatus;
 import com.razorpay.common.enums.PaymentMethod;
@@ -21,6 +22,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -31,13 +33,16 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "payments")
+@Table(name = "payments", indexes = {
+		@Index(name = "idx_payment_order_id", columnList = "order_id"),
+		@Index(name = "idx_payment_merchant_id", columnList = "merchant_id")
+})
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Payment {
+public class Payment extends BaseEntity{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
@@ -70,6 +75,9 @@ public class Payment {
 	
 	@Column(length = 100)
 	private String bankReference;
+	
+	@Column(length = 100)
+	private String processorReference;
 	
 	@Column(length = 100)
 	private String errorCode;

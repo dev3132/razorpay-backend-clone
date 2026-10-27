@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.UUID;
 
+import com.razorpay.common.entity.BaseEntity;
 import com.razorpay.common.entity.Money;
 import com.razorpay.common.enums.OrderStatus;
 import com.razorpay.common.enums.PaymentActor;
@@ -19,6 +20,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -29,13 +31,15 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table
+@Table(name = "payment_transition_log", indexes = {
+		@Index(name = "idx_payment_transition_log_payment_id", columnList = "payment_id")
+})
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class PaymentTransitionLog {
+public class PaymentTransitionLog extends BaseEntity{
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.UUID)

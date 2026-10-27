@@ -7,6 +7,7 @@ import java.util.UUID;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
+import com.razorpay.common.entity.BaseEntity;
 import com.razorpay.common.entity.Money;
 import com.razorpay.common.enums.OrderStatus;
 
@@ -18,6 +19,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,13 +28,17 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "order_records")
+@Table(name = "order_records", indexes = {
+		@Index(name = "idx_order_id_merchant_id", columnList = "id, merchant_id"),
+		@Index(name = "idx_order_merchant_id", columnList = "merchant_id")
+
+})
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class OrderRecord {
+public class OrderRecord extends BaseEntity{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)

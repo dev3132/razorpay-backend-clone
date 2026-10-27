@@ -2,6 +2,7 @@ package com.razorpay.merchant.entity;
 
 import java.util.UUID;
 
+import com.razorpay.common.entity.BaseEntity;
 import com.razorpay.common.enums.BusinessType;
 import com.razorpay.common.enums.MerchantStatus;
 
@@ -12,6 +13,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,13 +22,15 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "merchant")
+@Table(name = "merchant",indexes = {
+		@Index(name = "idx_merchant_status", columnList = "status")
+})
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Merchant {
+public class Merchant extends BaseEntity{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
